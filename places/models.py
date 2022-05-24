@@ -1,3 +1,22 @@
 from django.db import models
-print("hello!")
-# Create your models here.
+
+
+class Place(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Название места', blank=True)
+    short_description = models.TextField(max_length=500, verbose_name='Короткое описание', blank=True)
+    description = models.TextField(verbose_name='Описание места', blank=True)
+    longitude = models.FloatField(verbose_name='Долгота', null=True)
+    latitude = models.FloatField(verbose_name='Широта', null=True)
+
+
+
+    def __str__(self):
+        return f'{self.title}'
+
+
+class ImagePlace(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Название изображения', blank=True)
+    image = models.ImageField(upload_to='media', verbose_name='Изображение', null=True)
+
+    def __str__(self):
+        return f'{self.title}'
