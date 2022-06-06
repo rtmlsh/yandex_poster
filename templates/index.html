@@ -38,6 +38,7 @@
       width: 100px;
     }
   </style>
+
   <script id="places-geojson" type="application/json">
     {
       "type": "FeatureCollection",
@@ -49,8 +50,8 @@
             "coordinates": [37.62, 55.793676]
           },
           "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
+            "title": "{{ place_specifies.0.title }}",
+            "placeId": "{{ place_specifies.0.place_id }}",
             "detailsUrl": "{% static 'places/moscow_legends.json' %}"
           }
         },
@@ -61,8 +62,8 @@
             "coordinates": [37.64, 55.753676]
           },
           "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
+            "title": "{{ place_specifies.1.title }}",
+            "placeId": "{{ place_specifies.1.place_id }}",
             "detailsUrl": "{% static 'places/roofs24.json' %}"
           }
         }

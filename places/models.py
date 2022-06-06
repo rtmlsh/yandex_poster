@@ -3,6 +3,7 @@ from django.db import models
 
 class Place(models.Model):
     title = models.CharField(max_length=200, verbose_name='Название места', blank=True)
+    place_id = models.CharField(max_length=200, verbose_name='Place id места', blank=True)
     short_description = models.TextField(max_length=500, verbose_name='Короткое описание', blank=True)
     description = models.TextField(verbose_name='Описание места', blank=True)
     longitude = models.FloatField(verbose_name='Долгота', null=True)
