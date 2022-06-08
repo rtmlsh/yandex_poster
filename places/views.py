@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from places.models import Place, ImagePlace
 
 
@@ -12,7 +13,7 @@ def serialize_place(place):
     return serialized_place
 
 
-def get_event(request):
+def show_event(request):
     places = Place.objects.all()
     context = {
         'place_features': {
@@ -20,4 +21,11 @@ def get_event(request):
             'features': [serialize_place(place) for place in places]
         }
     }
+
     return render(request, "index.html", context)
+
+
+def get_event(request, slug):
+    place = get_object_or_404(Place, place_id=slug)
+    response = HttpResponse(place.title)
+    return response

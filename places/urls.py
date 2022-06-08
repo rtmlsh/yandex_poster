@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.get_event)
+    path('', views.show_event),
+    path('place/<slug:slug>', views.get_event)
 ]
