@@ -9,6 +9,8 @@ class Place(models.Model):
     longitude = models.FloatField(verbose_name='Долгота', null=True)
     latitude = models.FloatField(verbose_name='Широта', null=True)
 
+
+
     def __str__(self):
         return f'{self.title}'
 
