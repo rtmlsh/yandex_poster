@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from places.models import Place, ImagePlace
-import json
-
 
 
 def serialize_place(place):
@@ -12,7 +10,8 @@ def serialize_place(place):
         'short_description': place.short_description,
         'description': place.short_description,
         'longitude': place.longitude,
-        'latitude': place.latitude
+        'latitude': place.latitude,
+        'images': [image.image.url for image in place.images.all()]
     }
 
     return serialized_place
@@ -48,6 +47,7 @@ def get_event(request, slug):
     response = JsonResponse(
         {
             'title': requested_place['title'],
+            'images': requested_place['images'],
             'description_short': requested_place['short_description'],
             'description_long': requested_place['description'],
             'coordinates': {
@@ -59,4 +59,4 @@ def get_event(request, slug):
 
     )
 
-    return HttpResponse(response.content)
+    return HttpResponse(response.content, content_type='application/json; charset=utf-8')
