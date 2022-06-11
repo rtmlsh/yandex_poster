@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse
-from places.models import Place, ImagePlace
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.urls import reverse
+from places.models import Place
 
 
 def serialize_place(place):
@@ -17,12 +18,13 @@ def serialize_place(place):
     return serialized_place
 
 
-def create_geojson(place):
+def create_geojson(place, request):
     requested_place = serialize_place(place)
+    # redirect_url = reverse('place_json', args=[requested_place['place_id']])
     place = {
             'type': 'Feature',
             'geometry': {'type': 'Point', 'coordinates': [requested_place['longitude'], requested_place['latitude']]},
-            'properties': {'title': requested_place['title'], 'placeId': requested_place['place_id'], 'detailsUrl': 'test'}
+            'properties': {'title': requested_place['title'], 'placeId': requested_place['place_id'], 'detailsUrl': 'redirect_url'}
         }
 
     return place
@@ -33,7 +35,7 @@ def show_event(request):
     context = {
         'place_features': {
             'type': 'FeatureCollection',
-            'features': [create_geojson(place) for place in places]
+            'features': [create_geojson(place, request) for place in places]
         }
     }
 
@@ -43,7 +45,6 @@ def show_event(request):
 def get_event(request, slug):
     place = get_object_or_404(Place, place_id=slug)
     requested_place = serialize_place(place)
-
     response = JsonResponse(
         {
             'title': requested_place['title'],
@@ -56,7 +57,6 @@ def get_event(request, slug):
             }
          },
         json_dumps_params={'ensure_ascii': False, 'indent': 2},
-
     )
 
     return HttpResponse(response.content, content_type='application/json; charset=utf-8')
