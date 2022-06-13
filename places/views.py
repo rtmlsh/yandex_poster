@@ -48,7 +48,7 @@ def get_event(request, slug):
     response = JsonResponse(
         {
             'title': requested_place['title'],
-            'images': requested_place['images'],
+            'imgs': requested_place['images'],
             'description_short': requested_place['short_description'],
             'description_long': requested_place['description'],
             'coordinates': {
