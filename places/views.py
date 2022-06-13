@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from places.models import Place
 
@@ -9,7 +9,7 @@ def serialize_place(place):
         'title': place.title,
         'place_id': place.place_id,
         'short_description': place.short_description,
-        'description': place.short_description,
+        'description': place.description,
         'longitude': place.longitude,
         'latitude': place.latitude,
         'images': [image.image.url for image in place.images.all()]
@@ -20,11 +20,11 @@ def serialize_place(place):
 
 def create_geojson(place, request):
     requested_place = serialize_place(place)
-    # redirect_url = reverse('place_json', args=[requested_place['place_id']])
+    detail_url = reverse('place_json', args=[requested_place['place_id']])
     place = {
             'type': 'Feature',
             'geometry': {'type': 'Point', 'coordinates': [requested_place['longitude'], requested_place['latitude']]},
-            'properties': {'title': requested_place['title'], 'placeId': requested_place['place_id'], 'detailsUrl': 'redirect_url'}
+            'properties': {'title': requested_place['title'], 'placeId': requested_place['place_id'], 'detailsUrl': detail_url}
         }
 
     return place
