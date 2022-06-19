@@ -26,13 +26,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('places.urls')),
     path('', views.start_page),
-
-]
-
-urlpatterns += [
     path('places/', include('places.urls')),
-    path('', RedirectView.as_view(url='/places/', permanent=True))
+    path('', RedirectView.as_view(url='/places/', permanent=True)),
 ]
+
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
