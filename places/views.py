@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+
 from places.models import Place
 
 
@@ -23,8 +24,18 @@ def create_geojson(place, request):
     detail_url = reverse('place_json', args=[requested_place['place_id']])
     place = {
             'type': 'Feature',
-            'geometry': {'type': 'Point', 'coordinates': [requested_place['longitude'], requested_place['latitude']]},
-            'properties': {'title': requested_place['title'], 'placeId': requested_place['place_id'], 'detailsUrl': detail_url}
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [
+                    requested_place['longitude'],
+                    requested_place['latitude']
+                ]
+            },
+            'properties': {
+                'title': requested_place['title'],
+                'placeId': requested_place['place_id'],
+                'detailsUrl': detail_url
+            }
         }
 
     return place
@@ -59,4 +70,7 @@ def get_event(request, slug):
         json_dumps_params={'ensure_ascii': False, 'indent': 2},
     )
 
-    return HttpResponse(response.content, content_type='application/json; charset=utf-8')
+    return HttpResponse(
+        response.content,
+        content_type='application/json; charset=utf-8'
+    )

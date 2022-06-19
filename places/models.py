@@ -3,9 +3,15 @@ from tinymce.models import HTMLField
 
 
 class Place(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Название места', blank=True)
-    place_id = models.CharField(max_length=200, verbose_name='Place id места', blank=True)
-    short_description = models.TextField(max_length=500, verbose_name='Короткое описание', blank=True)
+    title = models.CharField(
+        max_length=200, verbose_name='Название места', blank=True
+    )
+    place_id = models.CharField(
+        max_length=200, verbose_name='Place id места', blank=True
+    )
+    short_description = models.TextField(
+        max_length=500, verbose_name='Короткое описание', blank=True
+    )
     description = HTMLField(blank=True)
     longitude = models.FloatField(verbose_name='Долгота', null=True)
     latitude = models.FloatField(verbose_name='Широта', null=True)
@@ -15,9 +21,17 @@ class Place(models.Model):
 
 
 class ImagePlace(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Название изображения', blank=True)
+    title = models.CharField(
+        max_length=200, verbose_name='Название изображения', blank=True
+    )
     image = models.ImageField(verbose_name='Изображение', null=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images', null=True, verbose_name='Место')
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+        related_name='images',
+        null=True,
+        verbose_name='Место'
+    )
     my_order = models.PositiveIntegerField(
         blank=False,
         null=False
