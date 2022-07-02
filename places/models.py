@@ -33,8 +33,8 @@ class ImagePlace(models.Model):
         verbose_name='Место'
     )
     my_order = models.PositiveIntegerField(
-        blank=False,
-        null=False
+        blank=True,
+        null=True
     )
 
     class Meta:
