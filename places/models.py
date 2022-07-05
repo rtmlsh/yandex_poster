@@ -10,14 +10,14 @@ class Place(models.Model):
         max_length=200, verbose_name='Place id места', blank=True
     )
     short_description = models.TextField(
-        max_length=500, verbose_name='Короткое описание', blank=True
+        verbose_name='Короткое описание', blank=True
     )
     description = HTMLField(blank=True)
     longitude = models.FloatField(verbose_name='Долгота', null=True)
     latitude = models.FloatField(verbose_name='Широта', null=True)
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
 
 class ImagePlace(models.Model):
@@ -41,4 +41,4 @@ class ImagePlace(models.Model):
         ordering = ['my_order']
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
