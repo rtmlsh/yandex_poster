@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
@@ -70,7 +70,4 @@ def get_event(request, slug):
         json_dumps_params={'ensure_ascii': False, 'indent': 2},
     )
 
-    return HttpResponse(
-        response.content,
-        content_type='application/json; charset=utf-8'
-    )
+    return response
