@@ -22,13 +22,11 @@ def upload_place(place, num):
     place_id = translator.translate(place['title'], dest="en").text.split()
     new_place = Place.objects.get_or_create(
         title=place['title'],
-        defaults={
-            'place_id': f'{place_id[0]}_{num}',
-            'short_description': place['description_short'],
-            'description': place['description_long'],
-            'longitude': place['coordinates']['lng'],
-            'latitude': place['coordinates']['lat']
-        }
+        place_id=f'{place_id[0]}_{num}',
+        short_description=place['description_short'],
+        description=place['description_long'],
+        longitude=place['coordinates']['lng'],
+        latitude=place['coordinates']['lat']
     )
     created_place = Place.objects.get(title=place['title'])
 
