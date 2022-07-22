@@ -20,14 +20,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
 @admin.register(ImagePlace)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['title']
-    readonly_fields = ['place_preview_image']
-
-    def place_preview_image(self, obj):
-        return format_html(
-            '<img src={} style="max-height: 100px;/>',
-            obj.image.url
-        )
+    raw_id_fields = ['place']
 
 
 @admin.register(Place)
