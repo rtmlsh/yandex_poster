@@ -8,7 +8,7 @@ from places.models import Place
 def serialize_place(place):
     serialized_place = {
         'title': place.title,
-        'place_id': place.place_id,
+        'place_id': place.pk,
         'short_description': place.short_description,
         'description': place.description,
         'longitude': place.longitude,
@@ -54,7 +54,7 @@ def show_event(request):
 
 
 def get_event(request, slug):
-    place = get_object_or_404(Place, place_id=slug)
+    place = get_object_or_404(Place, pk=slug)
     requested_place = serialize_place(place)
     response = JsonResponse(
         {

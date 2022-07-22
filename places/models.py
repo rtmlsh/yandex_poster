@@ -6,9 +6,6 @@ class Place(models.Model):
     title = models.CharField(
         max_length=200, verbose_name='Название места', blank=True
     )
-    place_id = models.CharField(
-        max_length=200, verbose_name='Place id места', blank=True
-    )
     short_description = models.TextField(
         verbose_name='Короткое описание', blank=True
     )

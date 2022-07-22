@@ -4,7 +4,6 @@ import os
 import requests
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from googletrans import Translator, constants
 
 from places.models import ImagePlace, Place
 
@@ -18,11 +17,8 @@ def get_json():
 
 
 def upload_place(place, num):
-    translator = Translator()
-    place_id = translator.translate(place['title'], dest="en").text.split()
     new_place = Place.objects.get_or_create(
         title=place['title'],
-        place_id=f'{place_id[0]}_{num}',
         short_description=place['description_short'],
         description=place['description_long'],
         longitude=place['coordinates']['lng'],
