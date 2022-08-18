@@ -29,13 +29,13 @@ class ImagePlace(models.Model):
         null=True,
         verbose_name='Место'
     )
-    my_order = models.PositiveIntegerField(
+    order = models.PositiveIntegerField(
         blank=True,
         null=True
     )
 
     class Meta:
-        ordering = ['my_order']
+        ordering = ['order']
 
     def __str__(self):
         return self.title
